@@ -1,0 +1,53 @@
+﻿@using WEB.Models
+@using PagedList.Mvc;
+@model PagedList.IPagedList<WEB.Models.THUONGHIEU>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutTH.cshtml";
+}
+
+<h2>Quản lí thương hiệu</h2>
+
+<a href="@Url.Action("Create","ThuongHieu")" class="btn btn-success" role="button">Thêm thương hiệu</a>
+<table class="table">
+    <tr>
+        <th>
+            Tên thương hiệu
+        </th>
+        <th>
+            Mô tả
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenTH)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MoTa)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", new { id = item.MaTH })" class="btn btn-warning" role="button">Sửa</a>
+                <a href="@Url.Action("Delete", new { id = item.MaTH })" class="btn btn-danger" role="button">Xóa</a>
+            </td>
+        </tr>
+    }
+
+</table>
+@*Tạo iên kết phần trang*@
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    <ul class="pagination justify-content-center justify-content-lg-center">
+        <li class="page-item mx-1"> @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</li>
+    </ul>
+
+</div>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+</style>

@@ -1,0 +1,38 @@
+﻿@model WEB.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    .img-product {
+        width: 200px;
+        margin-bottom: 20px;
+    }
+</style>
+<h2 style="text-align:center">CHI TIẾT SẢN PHẨM</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>Tên sách:</dt>
+        <dd> @Html.DisplayFor(model => model.TenSP) </dd>
+        <dt>Mô tả:</dt>
+        <dd> @Html.Raw(@Model.MoTa.ToString().Replace("\n", "</p><p>&nbsp&nbsp&nbsp&nbsp&nbsp")) </dd>
+        <dt> Ảnh bìa: </dt>
+        <dd> <img src="~/Content/img/@Model.HinhMinhHoa" alt="@Model.TenSP" class="img-product"/> </dd>
+        <dt> Ngày cập nhật: </dt>
+        <dd> @Html.FormatValue(@Model.NGAYCAPNHAT, "{0:dd/MM/yyyy}") </dd>
+        <dt> Số lượng bán: </dt>
+        <dd>@Html.DisplayFor(model => model.SOLUONGBAN) </dd>
+        <dt> Giá bán: </dt>
+        <dd> @Html.FormatValue(@Model.DonGia, "{0:#,##0}") VNĐ </dd>
+        <dt> Chủ đề: </dt>
+        <dd> @Html.DisplayFor(model => model.DANHMUC.TenDanhMuc) </dd>
+        <dt> Nhà xuất bản: </dt>
+        <dd> @Html.DisplayFor(model => model.THUONGHIEU.TenTH) </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.MaSP }) |
+    @Html.ActionLink("VỀ TRANG QUẢN LÝ SÁCH", "Index")
+</p>

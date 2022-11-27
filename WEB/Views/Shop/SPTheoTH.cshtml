@@ -1,0 +1,67 @@
+﻿@using WEB.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<SANPHAM>
+@{
+    ViewBag.Title = "SPTheoDM";
+    Layout = "~/Views/Shared/_LayoutShop.cshtml";
+}
+<div class="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
+    <div class="row mb-3 align-items-center">
+        <div class="row mb-3 align-items-center">
+            <div class="col-lg-6 mb-2 mb-lg-0">
+                @foreach (var loai in ViewBag.Ten)
+                {
+                    <p>THƯƠNG HIỆU: @loai.TenTH</p> <hr />
+                }
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        @foreach (var sp in Model)
+        {
+            <!--PRODUCT-->
+            <div class="col-lg-4 col-sm-6">
+                <div class="product text-center">
+                    <div class="mb-3 position-relative">
+                        <div class="badge text-white bg-"></div><a class="d-block" href="@Url.Action("CTSP","Shop",new {id = sp.MaSP })"><img class="img-fluid w-100" src="~/Content/img/@sp.HinhMinhHoa" alt="@sp.TenSP"></a>
+                        <div class="product-overlay">
+                            <ul class="mb-0 list-inline">
+                                <li class="list-inline-item m-0 p-0"><a class="btn btn-sm btn-dark" href="@Url.Action("ThemGioHang","Cart", new { ms = sp.MaSP, url = Request.Url.ToString() })">Add to cart</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                    <h6> <a class="reset-anchor" href="@Url.Action("CTSP","Shop",new {id = sp.MaSP })">@sp.TenSP</a></h6>
+                    <p class="small text-danger">@sp.DonGia</p>
+                </div>
+            </div>
+
+        }
+
+    </div>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Content/vendor/nouislider/nouislider.min.js"></script>
+    <script src="~/Content/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="~/Content/vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="~/Content/js/front.js"></script>
+    <!-- Nouislider Config-->
+    <!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+    @*Tạo liên kết các trang*@
+    Trang @(Model.PageCount<Model.PageNumber?0:Model.PageNumber)/@Model.PageCount
+
+    <div class="MenuTrang">
+        @Html.PagedListPager(Model, page => Url.Action("SPTheoTH", new { MaTH = ViewBag.MaTH, page = page }))
+    </div>
+    <style>
+        .MenuTrang {
+            display: inline;
+            text-align: center;
+        }
+    </style>
+
+</div>

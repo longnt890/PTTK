@@ -1,0 +1,121 @@
+﻿@using WEB.Models
+@model List<GioHang>
+@{
+    ViewBag.Title = "GioHang";
+    Layout = "~/Views/Shared/_LayoutCart.cshtml";
+}
+<section class="py-5">
+    <h2 class="h5 text-uppercase mb-4">Shopping cart</h2>
+    <div class="row">
+        <div class="col-lg-8 mb-4 mb-lg-0">
+            <!-- CART TABLE-->
+            <div class="table-responsive mb-4">
+                <table class="table text-nowrap">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">ProductID</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Product</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Price</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Quantity</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase">Total</strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase"></strong></th>
+                            <th class="border-0 p-3" scope="col"> <strong class="text-sm text-uppercase"></strong></th>
+                        </tr>
+                    </thead>
+                    <!--Hien thi san pham-->
+                    <tbody class="border-0">
+                        @foreach (var sp in Model)
+                        {
+                        <tr>
+                            <td class="p-3 align-middle border-light">
+                                <p class="mb-0 small">@sp.MaSP</p>
+                            </td>
+                            <th class="ps-0 py-3 border-light" scope="row">
+                                <div class="d-flex align-items-center">
+                                    <a class="reset-anchor d-block animsition-link" href="@Url.Action("CTSP","Shop",new {id = sp.MaSP })"> <img src="~/Content/img/@sp.HinhMinhHoa" alt="@sp.MaSP" width="70" /></a>
+                                    <div class="ms-3"><strong class="h6"><a class="reset-anchor animsition-link" href="@Url.Action("CTSP","Shop",new {id = sp.MaSP })">@sp.TenSP</a></strong></div>
+                                </div>
+                            </th>
+                            <td class="p-3 align-middle border-light">
+                                <p class="mb-0 small">@sp.DonGia</p>
+                            </td>
+                            @using (Html.BeginForm("CapNhatGioHang", "Cart", new { MaSP = sp.MaSP }))
+                            {
+                                <td class="p-3 align-middle border-light">
+                                    <div class="border d-flex align-items-center justify-content-between px-3">
+                                        <span class="small text-uppercase text-gray headings-font-family">Quantity</span>
+                                        <div class="quantity">
+                                            <button class="dec-btn p-0"><i class="fas fa-caret-left"></i></button>
+                                            <input class="form-control form-control-sm border-0 shadow-0 p-0" type="text" value="@sp.SoLuong" name="txtSoLuong" />
+                                            <button class="inc-btn p-0"><i class="fas fa-caret-right"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            <td class="p-3 align-middle border-light">
+                                <p class="mb-0 small">@sp.dThanhTien</p>
+                            </td>
+                            <td class="p-3 align-middle border-light">@Html.ActionLink("Xoa", "XoaSP", new { @MaSP = sp.MaSP })</td>}
+                        </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- CART NAV-->
+            <div class="bg-light px-4 py-3">
+                <div class="row align-items-center text-center">
+                    <div class="col-md-6 mb-3 mb-md-0 text-md-start"><a class="btn btn-link p-0 text-dark btn-sm" href="shop.html"><i class="fas fa-long-arrow-alt-left me-2"> </i>Continue shopping</a></div>
+                    <div class="col-md-6 text-md-end"><a class="btn btn-outline-dark btn-sm" href="@Url.Action("DatHang","Cart")">Procceed to checkout<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
+                </div>
+            </div>
+        </div>
+        <!-- ORDER TOTAL-->
+        <div class="col-lg-4">
+            <div class="card border-0 rounded-0 p-lg-4 bg-light">
+                <div class="card-body">
+                    <h5 class="text-uppercase mb-4">Cart total</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="d-flex align-items-center justify-content-between"><strong class="text-uppercase small font-weight-bold">Tổng số lượng</strong><span class="text-muted small">@ViewBag.TongSoLuong</span></li>
+                        <li class="border-bottom my-2"></li>
+                        <li class="d-flex align-items-center justify-content-between mb-4"><strong class="text-uppercase small font-weight-bold">Total</strong><span>@ViewBag.TongTien</span></li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="vendor/glightbox/js/glightbox.min.js"></script>
+<script src="vendor/nouislider/nouislider.min.js"></script>
+<script src="vendor/swiper/swiper-bundle.min.js"></script>
+<script src="vendor/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="js/front.js"></script>
+<script>// ------------------------------------------------------- //
+            //   Inject SVG Sprite -
+            //   see more here
+            //   https://css-tricks.com/ajaxing-svg-sprite/
+            // ------------------------------------------------------ //
+    document.querySelectorAll('.dec-btn').forEach((el) => {
+        el.addEventListener('click', () => {
+            var siblings = el.parentElement.querySelector('input');
+            if (parseInt(siblings.value, 10) >= 1) {
+                siblings.value = parseInt(siblings.value, 10) - 1;
+            }
+        });
+    });
+    document.querySelectorAll('.inc-btn').forEach((el) => {
+        el.addEventListener('click', () => {
+            var siblings = el.parentElement.querySelector('input');
+            siblings.value = parseInt(siblings.value, 10) + 1;
+        });
+    });
+            // this is set to BootstrapTemple website as you cannot
+            // inject local SVG sprite (using only 'icons/orion-svg-sprite.svg' path)
+            // while using file:// protocol
+            // pls don't forget to change to your domain :)
+            injectSvgSprite('https://bootstraptemple.com/files/icons/orion-svg-sprite.svg');</script>
+<!-- FontAwesome CSS - loading as last, so it doesn't block rendering-->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+

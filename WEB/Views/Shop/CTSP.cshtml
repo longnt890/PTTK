@@ -1,0 +1,61 @@
+﻿@model WEB.Models.ProductDetail
+@{
+    ViewBag.Title = "CTSP";
+    Layout = "~/Views/Shared/_LayoutProduct.cshtml";
+}
+<div class="col-lg-6">
+    <!-- PRODUCT SLIDER-->
+    <div class="row m-sm-0">
+        <div class="col-sm-10 order-1 order-sm-2">
+            <div class="swiper product-slider">
+                <div class="swiper-wrapper">
+                    <img class="img-fluid" src="~/Content/img/@Model.HinhMinhHoa" alt="..." style="width:377px; height:377px">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-6">
+
+    <h1>@Model.TenSP</h1><br />
+    <h4>Danh Mục:<a href="@Url.Action("SPTheoDM","Shop",new {id = Model.MaDM })"> @Model.TenDanhMuc</a></h4><br />
+    <h4>Thương Hiệu:<a href="@Url.Action("SPTheoTH","Shop",new {id = Model.MaTH })"> @Model.TenTH </a></h4><br />
+    <p class="text-muted lead">Giá bán: @Model.DonGia</p><br />
+    <p class="text-muted lead">Số lượng bán: @Model.SOLUONGBAN</p><br />
+    <div class="row align-items-stretch mb-4">
+        
+        <div class="col-sm-3 pl-sm-0"><a class="btn btn-dark btn-sm btn-block h-100 d-flex align-items-center justify-content-center px-0" href="@Url.Action("ThemGioHang","Cart", new { ms = Model.MaSP, url = Request.Url.ToString() })">Add to cart</a></div>
+    </div><br>
+
+</div>
+          </div>
+<!-- DETAILS TABS-->
+<ul class="nav nav-tabs border-0" id="myTab" role="tablist">
+    <li class="nav-item"><a class="nav-link text-uppercase active" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a></li>
+</ul>
+<div class="tab-content mb-5" id="myTabContent">
+    <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+        <div class="p-4 p-lg-5 bg-white">
+            <h6 class="text-uppercase">Product description </h6>
+            <p class="text-muted text-sm mb-0">@Model.MoTa</p>
+        </div>
+    </div>
+
+</div>
+<script>
+    document.querySelectorAll('.dec-btn').forEach((el) => {
+        el.addEventListener('click', () => {
+            var siblings = el.parentElement.querySelector('input');
+            if (parseInt(siblings.value, 10) >= 1) {
+                siblings.value = parseInt(siblings.value, 10) - 1;
+            }
+        });
+    });
+    document.querySelectorAll('.inc-btn').forEach((el) => {
+        el.addEventListener('click', () => {
+            var siblings = el.parentElement.querySelector('input');
+            siblings.value = parseInt(siblings.value, 10) + 1;
+        });
+    });
+</script>
+

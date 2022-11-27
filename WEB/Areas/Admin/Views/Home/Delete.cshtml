@@ -1,0 +1,86 @@
+﻿@model WEB.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>SANPHAM</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TenSP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TenSP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonGia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonGia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoTa)
+        </dd>
+
+        <dt> Ảnh bìa: </dt>
+        <dd> <img src="~/Content/img/@Model.HinhMinhHoa" alt="@Model.TenSP" class="img-product" /> </dd>
+        <dt> Ngày cập nhật: </dt>
+        <dd> @Html.FormatValue(@Model.NGAYCAPNHAT, "{0:dd/MM/yyyy}") </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SOLUONGBAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOLUONGBAN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DANHMUC.TenDanhMuc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DANHMUC.TenDanhMuc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KHUYENMAI.MoTa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KHUYENMAI.MoTa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THUONGHIEU.TenTH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.THUONGHIEU.TenTH)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

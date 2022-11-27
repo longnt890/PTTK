@@ -1,0 +1,110 @@
+﻿@using WEB.Models
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAccount.cshtml";
+    ADMIN ad = (ADMIN)Session["Admin"];
+}
+
+<div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <!-- Row -->
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <center class="m-t-30">
+                        <img src="~/Areas/Admin/Content/assets/images/users/user-01.png"
+                             class="rounded-circle" width="150" />
+                        <h4 class="card-title m-t-10">@ad.HoTenAdmin</h4>                    
+                    </center>
+                </div>
+                <div>
+                    <hr>
+                </div>
+                <div class="card-body">
+                    <small class="text-muted">Email address </small>
+                    <h6>@ad.EmailAdmin</h6> <small class="text-muted p-t-30 db">Phone</small>
+                    <h6>@ad.DienThoaiAdmin</h6> <small class="text-muted p-t-30 db">Address</small>
+                    <h6>@ad.DiaChiAdmin</h6>
+                   
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <div class="card-body">
+                    <form class="form-horizontal form-material mx-2" method="post">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label class="col-md-12">Full Name</label>
+                            <div class="col-md-12">
+                                <input type="text" value="@ad.HoTenAdmin"
+                                       class="form-control form-control-line" name="HoTen">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email" class="col-md-12">Email</label>
+                            <div class="col-md-12">
+                                <input type="email" value="@ad.EmailAdmin"
+                                       class="form-control form-control-line" name="email"
+                                       id="example-email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Tên đăng nhập</label>
+                            <div class="col-md-12">
+                                <input type="text" value="@ad.TenDNAdmin"
+                                       class="form-control form-control-line" name="TenDN">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Password</label>
+                            <div class="col-md-12">
+                                <input type="text" value="@ad.MatKhauAdmin"
+                                       class="form-control form-control-line" name="Pass">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Số điện thoại</label>
+                            <div class="col-md-12">
+                                <input type="text" value="@ad.DienThoaiAdmin"
+                                       class="form-control form-control-line" name="DT">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Địa chỉ</label>
+                            <div class="col-md-12">
+                                <input type="text" value="@ad.DiaChiAdmin"
+                                       class="form-control form-control-line" name="DiaChi">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <input class="btn btn-success text-white" value="Update Profile" type="submit"></input>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+    <!-- Row -->
+    <!-- ============================================================== -->
+    <!-- End PAge Content -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Right sidebar -->
+    <!-- ============================================================== -->
+    <!-- .right-sidebar -->
+    <!-- ============================================================== -->
+    <!-- End Right sidebar -->
+    <!-- ============================================================== -->
+</div>
+

@@ -1,0 +1,11 @@
+﻿@using WEB.Models
+@{
+    ADMIN ad = (ADMIN)Session["Admin"];
+}
+<a class="dropdown-item" href="@Url.Action("Profile","Account")">
+    <i class="ti-user m-r-5 m-l-5"></i>
+    My Profile: @ad.HoTenAdmin
+</a>
+<a class="dropdown-item" href="@Url.Action("DangXuat","Account")">
+    <i class="ti-power-off m-r-5 m-l-5"></i>Đăng xuất
+</a>

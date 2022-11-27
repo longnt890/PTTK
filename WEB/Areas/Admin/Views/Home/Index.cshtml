@@ -1,0 +1,71 @@
+﻿@using WEB.Models
+@using PagedList.Mvc;
+@model PagedList.IPagedList<WEB.Models.SANPHAM>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h1 class="mb-0 fw-bold">Quản lí Sản phẩm</h1>
+<br />
+
+<a href="@Url.Action("Create","Home")" class="btn btn-success" role="button">Thêm sản phẩm</a>
+<table class="table">
+    <tr>
+        <th style="text-align:center;width:140px">Tên sản phẩm</th>
+        <th style="text-align:center;width:200px">Mô tả</th>
+        <th style="text-align:center;width:80px">@Html.DisplayNameFor(model => model.First().HinhMinhHoa)</th>
+        <th style="text-align:center;width:100px">Ngày cập nhật</th>
+        <th style="text-align:center;width:80px">Số lượng</th>
+        <th style="text-align:center;width:80px">@Html.DisplayNameFor(model => model.First().DonGia) </th>
+        <th style="text-align:center;width:100px"> Danh mục </th>
+        <th style="text-align:center;width:100px">Thương hiệu</th>
+        <th style="text-align:center"></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.TenSP)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.MoTa)
+    </td>
+    <td> <img src="~/Content/img/@item.HinhMinhHoa" style="width:50px;" /> </td>
+    <td>
+        @*Định dạng hiển thị*@
+        @Html.FormatValue(@item.NGAYCAPNHAT, "{0:dd/MM/yyyy}")
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SOLUONGBAN)
+    </td>
+    <td> @Html.FormatValue(item.DonGia, "{0:#,##0}") </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DANHMUC.TenDanhMuc)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.THUONGHIEU.TenTH)
+    </td>
+    <td>
+        <a href="@Url.Action("Edit", new { id = item.MaSP })" class="btn btn-warning" role="button">Sửa</a>
+        <a href="@Url.Action("Details", new { id = item.MaSP })" class="btn btn-primary" role="button">Chi tiết</a>
+        <a href="@Url.Action("Delete", new { id = item.MaSP })" class="btn btn-danger" role="button">Xóa</a>
+    </td>
+</tr>
+    }
+
+</table>
+@*Tạo iên kết phần trang*@
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount
+<div class="MenuTrang">
+    <ul class="pagination justify-content-center justify-content-lg-center">
+        <li class="page-item mx-1"> @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))</li>
+    </ul>
+   
+</div>
+<style>
+    .MenuTrang {
+        display: inline;
+        text-align: center;
+    }
+</style>
